@@ -8,7 +8,6 @@ const routes: Record<string, Component> = {
   // '/about': About,
   '/experiences': Experiences,
   '/applications': Applications,
-  // '/contact': Contact
 }
 
 const currentPath = ref(window.location.hash)
@@ -24,10 +23,18 @@ const currentView = computed(() => {
 
 <template>
   <aside>
-    <header>
-      <img class="logo" src="../assets/profile-picture.jpeg" alt="Logo" width="100" height="100" />
-      Axel Mathieu
-    </header>
+    <div class="contact">
+        <img class="logo" src="../assets/profile-picture.jpeg" alt="Logo" width="100" height="100" />
+        <p>Axel Mathieu</p>
+        <div class="socials">
+          <a href="https://github.com/AxelMth" target="_blank">
+            <img src="../assets/github.png" alt="Github" width="20" height="20" />
+          </a>
+          <a href="https://www.linkedin.com/in/axel-mathieu-le-gall-361b1510a/" target="_blank">
+            <img src="../assets/linkedin.png" alt="Linkedin" width="20" height="20" />
+          </a>
+        </div>
+      </div>
     <nav>
       <a href="#/experiences">Experiences</a>
       <a href="#/applications">Applications</a>
@@ -48,22 +55,32 @@ const currentView = computed(() => {
     background-color: var(--color-primary);
     color: white;
   }
+
   main {
     height: 100vh;
     margin-left: 200px;
     width: calc(100vw - 400px);
     padding: 2rem;
   }
-  header {
-    line-height: 1.5;
+
+  .contact {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
   }
 
   .logo {
     display: block;
-    margin: 0 auto 2rem;
     border-radius: 50px;
-    padding: 0.5rem;
     margin-top: 1rem;
+  }
+
+  .socials {
+    display: flex;
+    justify-content: space-around;
   }
 
   nav {
