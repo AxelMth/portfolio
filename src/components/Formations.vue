@@ -22,7 +22,9 @@ const formations = [
 ]
 </script>
 <template>
-    <div v-for="formation in formations" :key="formation.title">
-        <FormationItem :title="formation.title" :description="formation.description" :startDate="formation.startDate" :endDate="formation.endDate" />
+    <div class="container">
+        <div v-for="formation in formations" :key="formation.title" class="full-screen-item">
+            <FormationItem :title="formation.title" :description="formation.description" :startDate="formation.startDate" :endDate="formation.endDate" />
+        </div>
     </div>
 </template>
