@@ -43,28 +43,28 @@ const currentView = computed(() => {
 </template>
 
 <style scoped>
-aside {
-  position: fixed;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  width: 200px;
-  background-color: var(--color-primary);
-  color: white;
-}
-main {
-  height: 100%;
-  margin-left: 200px;
-  width: calc(100vw - 200px);
-}
-header {
-  line-height: 1.5;
-}
+  aside {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 200px;
+    background-color: var(--color-primary);
+    color: white;
+  }
+  main {
+    height: 100%;
+    margin-left: 200px;
+    width: calc(100vw - 200px);
+  }
+  header {
+    line-height: 1.5;
+  }
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
+  .logo {
+    display: block;
+    margin: 0 auto 2rem;
+  }
 </style>
 
 <style>
