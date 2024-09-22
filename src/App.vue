@@ -1,12 +1,14 @@
 <script setup lang="ts">
 import Applications from './components/Applications.vue';
+import Experiences from './components/Experiences.vue';
 import Formations from './components/Formations.vue';
 
 import { computed, ref, type Component } from 'vue'
 
 const routes: Record<string, Component> = {
+  // '/about': About,
   '/formations': Formations,
-  '/experience': Formations,
+  '/experiences': Experiences,
   '/applications': Applications
 }
 
