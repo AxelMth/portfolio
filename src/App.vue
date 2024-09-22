@@ -51,7 +51,7 @@ const currentView = computed(() => {
   main {
     height: 100vh;
     margin-left: 200px;
-    width: calc(100vw - 200px);
+    width: calc(100vw - 400px);
     padding: 2rem;
   }
   header {

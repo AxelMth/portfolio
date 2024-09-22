@@ -77,7 +77,7 @@ onMounted(() => {
 
 <style scoped>
 .timeline {
-    border-left: 1px solid #ccc;
+    border-left: 1px solid grey;
     height: 100px;
     margin-left: 40px;
     transition: opacity 0.5s ease-in-out;
