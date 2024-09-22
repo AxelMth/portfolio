@@ -25,7 +25,7 @@ const applications = [
 </script>
 <template>
     <div class="container">
-        <div v-for="application in applications" :key="application.name" class="full-screen-item">
+        <div v-for="application in applications" :key="application.name">
             <ApplicationItem :name="application.name" :description="application.description" :siteUrl="application.siteUrl" :logo="application.logo" :repositoryUrl="application.repositoryUrl" />
         </div>
     </div>
