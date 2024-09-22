@@ -1,106 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8">
+    <link rel="icon" href="/favicon.ico">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio - Web Developer</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-        }
-        header {
-            background-color: #333;
-            color: #fff;
-            padding: 1rem 0;
-            text-align: center;
-        }
-        .container {
-            width: 80%;
-            margin: 0 auto;
-            padding: 2rem 0;
-        }
-        .project {
-            background-color: #fff;
-            margin-bottom: 1rem;
-            padding: 1rem;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            display: flex;
-            align-items: center;
-        }
-        .project h2 {
-            margin-top: 0;
-        }
-        .project a {
-            color: #007BFF;
-            text-decoration: none;
-        }
-        .project a:hover {
-            text-decoration: underline;
-        }
-        .project img {
-            max-width: 50px;
-            margin-right: 1rem;
-        }
-        footer {
-            background-color: #333;
-            color: #fff;
-            text-align: center;
-            padding: 1rem 0;
-            position: fixed;
-            width: 100%;
-            bottom: 0;
-        }
-    </style>
-</head>
-<body>
-    <header>
-        <h1>My Portfolio</h1>
-        <p>Welcome to my portfolio! I am a web developer with a passion for creating amazing projects.</p>
-    </header>
-    <div class="container">
-        <div class="project">
-            <img src="assets/earthunt.png" alt="Earthunt Logo">
-            <div>
-                <h2>Earthunt</h2>
-                <p>An exciting game available on iOS.</p>
-            </div>
-        </div>
-        <div class="project">
-            <img src="assets/word-climb.png" alt="WordClimb Logo">
-            <div>
-                <h2>WordClimb</h2>
-                <p>A word game that is currently in progress.</p>
-            </div>
-        </div>
-        <div class="project">
-            <img src="assets/twit-hair.jpg" alt="Twit'Hait Bot Logo">
-            <div>
-                <h2>Twit'Hait Bot</h2>
-                <p>A Twitter bot that tweets about hair saloons with a pun.</p>
-                <a href="https://twitter.com/twitt_hair_" target="_blank">Twitter</a>.
-            </div>
-        </div>
-        <div class="project">
-            <img src="path/to/f1app-logo.png" alt="F1 App Logo">
-            <div>
-                <h2>F1 App</h2>
-                <p>An app for Formula 1 enthusiasts, currently in progress.</p>
-            </div>
-        </div>
-        <div class="project">
-            <img src="path/to/verdict-logo.png" alt="Verdict Logo">
-            <div>
-                <h2>Verdict</h2>
-                <p>A project available at <a href="https://verdict.axelmathi.eu" target="_blank">verdict.axelmathi.eu</a>. <a href="https://verdict.axelmathi.eu/demo" target="_blank">Ask for a demo</a>.</p>
-            </div>
-        </div>
-    </div>
-    <footer>
-        <p>Contact me at: your-email@example.com</p>
-    </footer>
-</body>
+    <title>Vite App</title>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
 </html>
