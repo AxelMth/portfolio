@@ -1,21 +1,33 @@
 <script lang="ts" setup>
-defineProps<{ 
+import { computed } from 'vue';
+
+const props = defineProps<{ 
     companyName: string; 
     companyLogo: string; 
     jobTitle: string; 
     description: string; 
     siteUrl: string;   
     startDate: string; 
-    endDate: string 
+    endDate: string | null
 }>();
+
+const formatDate = (dateStr: string | null) => {
+    if (!dateStr) return '';
+    const date = new Date(dateStr);
+    const formattedDate = date.toLocaleDateString('fr-FR', { month: 'long', year: 'numeric' });
+    return formattedDate.charAt(0).toUpperCase() + formattedDate.slice(1);
+};
+
+const formattedStartDate = computed(() => formatDate(props.startDate));;
+const formattedEndDate = computed(() => formatDate(props.endDate));
 </script>
 <template>
     <article>
-            <img :alt="companyName" :src="companyLogo" width="125" height="125" />
+            <img :alt="companyName" :src="companyLogo" width="150" height="150" />
             <div class="info">
                 <h2>{{ jobTitle }}</h2>
                 <p>{{ description }}</p>
-                <p>{{ startDate }} - {{ endDate }}</p>
+                <p>{{ formattedStartDate }} - {{ formattedEndDate }}</p>
                 <a :href="siteUrl" target="_blank" rel="noopener noreferrer">Visit</a>
             </div>
     </article>
