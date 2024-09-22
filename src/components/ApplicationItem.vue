@@ -9,6 +9,7 @@
                 <h2>{{ name }}</h2>
                 <p>{{ description }}</p>
                 <a :href="siteUrl" target="_blank" rel="noopener noreferrer">Visit</a>
+                <a v-if="repositoryUrl" :href="repositoryUrl" target="_blank" rel="noopener noreferrer">Repository</a>
             </div>
     </article>
 </template>

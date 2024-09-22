@@ -23,12 +23,12 @@ const formattedEndDate = computed(() => formatDate(props.endDate));
 </script>
 <template>
     <article>
-            <img :alt="companyName" :src="companyLogo" width="150" height="150" />
+            <img :alt="companyName" :src="companyLogo" width="80" height="80" class="logo" />
             <div class="info">
-                <h2>{{ jobTitle }}</h2>
-                <p>{{ description }}</p>
-                <p>{{ formattedStartDate }} - {{ formattedEndDate }}</p>
-                <a :href="siteUrl" target="_blank" rel="noopener noreferrer">Visit</a>
+                <h3>{{ jobTitle }}</h3>
+                <p class="description">{{ description }}</p>
+                <p class="dates">{{ formattedStartDate }} - {{ formattedEndDate }}</p>
+                <!-- <a :href="siteUrl" target="_blank" rel="noopener noreferrer">Visit</a> -->
             </div>
     </article>
 </template>
@@ -43,11 +43,24 @@ article {
     margin-left: 1rem;
 }
 
-h2 {
+h3 {
     margin: 0;
+}
+
+.description {
+    font-size: 12px;
+}
+
+.dates {
+    font-size: 12px;
+    color: grey
 }
 
 p {
     margin: 0;
+}
+
+.logo {
+    border-radius: 50%;
 }
 </style>
