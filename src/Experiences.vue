@@ -5,7 +5,7 @@ import ExperienceItem from './ExperienceItem.vue';
 const experiences = ref([
     {
         companyName: 'Hublo',
-        companyLogo: './assets/hublo.jpeg',
+        companyLogo: '/hublo.jpeg',
         jobTitle: 'Tech Lead',
         description: `
 Écriture et mise en place d’une nouvelle architecture microservices. Découpage des tâches et plannification des sujets techniques pour une équipe de 3 personnes. Mise en place de nouveaux process agiles.
@@ -16,7 +16,7 @@ const experiences = ref([
     },
     {
         companyName: 'Padoa',
-        companyLogo: './assets/padoa.jpeg',
+        companyLogo: '/padoa.jpeg',
         jobTitle: 'Développeur Fullstack Sénior',
         description: `
 Développement de nouvelles fonctionnalités au sein de l’outil padoa. Mise en place de nouveaux
@@ -28,7 +28,7 @@ process agiles.
     },
     {
         companyName: 'Citron',
-        companyLogo: './assets/citron.jpeg',
+        companyLogo: '/citron.jpeg',
         jobTitle: 'Tech Lead',
         description: `
 Mise en place de l'automatisation de l'éxecution des tests. Automatisation du process de déploiement. Création d'un système d'import simple pour le paramétrage client. Migration Mongoose. 
