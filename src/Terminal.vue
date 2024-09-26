@@ -38,8 +38,6 @@ const onEnter = () => {
   } else {
     logs.value.push(`Command not found: ${text.value}`);
   }
-  logs.value = [...logs.value];
-
   text.value = '';
 }
 
@@ -56,12 +54,12 @@ onMounted(() => {
 </script>
 
 <template>
-  <main>
+  <div>
     <p v-for="log in logs" :key="log">{{ log }}</p>
     <p>
       admin> <input type="text" v-model="text" @keyup.enter="onEnter" ref="inputRef"/>
     </p>
-  </main>
+  </div>
   <Window v-if="shouldShowWindow" title="Resume" body="This is my resume." :close="onCloseWindow"/>
 </template>
 
