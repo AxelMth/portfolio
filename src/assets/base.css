@@ -68,7 +68,8 @@ body {
   line-height: 1.6;
   font-family:
     'Courier';
-  font-size: 15px;
+  font-size: medium;
+  color: #22eae0;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

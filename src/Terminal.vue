@@ -57,4 +57,8 @@ onMounted(() => {
     border: none;
     outline: none;
   }
+  input {
+    font-family: Courier;
+    font-size: medium;
+  }
 </style>
