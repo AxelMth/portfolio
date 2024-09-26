@@ -1,15 +1,18 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
+import Window from './components/Window.vue';
 
 const text = ref<string>('');
 const logs = ref<string[]>([]);
 const inputRef = ref<HTMLInputElement | null>(null);
+const shouldShowWindow = ref<boolean>(false);
 
 const commands: Record<string, () => void> = {
   help: () => {
     logs.value.push('Available commands:');
     logs.value.push('about - About this terminal');
     logs.value.push('contact - Contact information');
+    logs.value.push('socials - Social media links');
   },
   about: () => {
     logs.value.push('This is a simple terminal created with Vue 3.');
@@ -19,7 +22,14 @@ const commands: Record<string, () => void> = {
   },
   contact: () => {
     logs.value.push('Email: some-email@gmail.com');
-  }
+  },
+  socials: () => {
+    logs.value.push('LinkedIn           @some-twitter');
+    logs.value.push('GitHub             @some-github');
+  },
+  resume: () => {
+    shouldShowWindow.value = true;
+  },
 }
 
 const onEnter = () => {
@@ -31,6 +41,10 @@ const onEnter = () => {
   logs.value = [...logs.value];
 
   text.value = '';
+}
+
+const onCloseWindow = () => {
+  shouldShowWindow.value = false;
 }
 
 onMounted(() => {
@@ -48,6 +62,7 @@ onMounted(() => {
       admin> <input type="text" v-model="text" @keyup.enter="onEnter" ref="inputRef"/>
     </p>
   </main>
+  <Window v-if="shouldShowWindow" title="Resume" body="This is my resume." :close="onCloseWindow"/>
 </template>
 
 <style scoped>
