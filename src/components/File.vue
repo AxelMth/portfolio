@@ -23,6 +23,7 @@ const emit = defineEmits(['click']);
   }
   img:hover {
     cursor: pointer;
+    filter: brightness(0.7);
   }
   img:hover + p {
     color: #fff;
