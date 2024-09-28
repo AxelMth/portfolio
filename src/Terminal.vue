@@ -9,10 +9,9 @@ const inputRef = ref<HTMLInputElement | null>(null);
 const shouldShowResume = ref<boolean>(false);
 const shouldShowProjects = ref<boolean>(false);
 const projectItems = ref<{ type: "file" | "folder", name: string; iconUrl: string }[]>([
-  { type: 'file', name: 'Project 1', iconUrl: '/github.svg' },
-  { type: 'folder', name: 'Project 2', iconUrl: '/folder.png' },
-  { type: 'file', name: 'Project 3', iconUrl: '/linkedin.png' },
-  { type: 'folder', name: 'Project 4', iconUrl: '/folder.png' },
+  { type: 'file', name: 'Earthunt', iconUrl: '/earthunt.png' },
+  { type: 'file', name: 'Twit\'Hair', iconUrl: '/twit-hair.png' },
+  { type: 'file', name: 'Verdict', iconUrl: '/twit-hair.png' },
 ]);
 
 const commands: Record<string, () => void> = {
