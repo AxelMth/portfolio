@@ -45,7 +45,6 @@ const commands: Record<string, () => void> = {
   help: () => {
   logs.value.push('Available commands: ')
   const helpLogs = getLogsForCommands([
-      { name: 'about', description: 'About me' },
       { name: 'experiences', description: 'Show my experiences' },
       { name: 'socials', description: 'Social media links' },
       { name: 'resume', description: 'Show my resume' },
@@ -53,9 +52,6 @@ const commands: Record<string, () => void> = {
       { name: 'clear', description: 'Clear the terminal' },
     ])
   helpLogs.forEach(log => logs.value.push(log));
-  },
-  about: () => {
-    logs.value.push('This is a simple terminal created with Vue 3.');
   },
   clear: () => {
     logs.value = [];
