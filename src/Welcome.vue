@@ -1,88 +1,49 @@
 <script setup lang="ts">
-import { ref, onMounted, onBeforeUnmount } from 'vue';
+import { onBeforeMount, onBeforeUnmount, ref } from 'vue';
 
-// Define reactive variables
-const visible = ref(true);
-const letterCount = ref(1);
-const waiting = ref(false);
-let x = 1;
-let intervalId: number | null = null;
-let underscoreIntervalId: number | null = null;
+const textToDisplay = [
+  'Hello, World!',
+  'Welcome to my portfolio!',
+  'I am a full-stack developer.',
 
-// Function to handle console text effect
-function consoleText(words: string[], id: string, colors: string[]) {
-  if (!colors || colors.length === 0) {
-    colors = ['#fff'];
-  }
-
-  const target = document.getElementById(id);
-  const con = document.getElementById('console');
-
-  if (!target || !con) return;
-
-  target.setAttribute('style', 'color:' + colors[0]);
-
-  intervalId = window.setInterval(function () {
-    if (letterCount.value === 0 && waiting.value === false) {
-      waiting.value = true;
-      target.innerHTML = words[0].substring(0, letterCount.value);
-      window.setTimeout(function () {
-        const usedColor = colors.shift()!;
-        colors.push(usedColor);
-        const usedWord = words.shift()!;
-        words.push(usedWord);
-        x = 1;
-        target.setAttribute('style', 'color:' + colors[0]);
-        letterCount.value += x;
-        waiting.value = false;
-      }, 1000);
-    } else if (letterCount.value === words[0].length + 1 && waiting.value === false) {
-      waiting.value = true;
-      window.setTimeout(function () {
-        x = -1;
-        letterCount.value += x;
-        waiting.value = false;
-      }, 1000);
-    } else if (waiting.value === false) {
-      target.innerHTML = words[0].substring(0, letterCount.value);
-      letterCount.value += x;
-    }
-  }, 80);
-
-  underscoreIntervalId = window.setInterval(function () {
-    if (visible.value === true) {
-      con.className = 'console-underscore hidden';
-      visible.value = false;
+];
+const textIndex = ref<number>(0);
+const displayedText = ref<string>('');
+const textDirection = ref<'forward' | 'backward'>('forward');
+const textDisplayIntervalId = setInterval(
+  () => {
+    const text = textToDisplay[textIndex.value];
+    const currentText = displayedText.value;
+    if (currentText.length < text.length && textDirection.value === 'forward') {
+      displayedText.value = text.slice(0, currentText.length + 1);
+    } else if (currentText.length > 0 && textDirection.value === 'backward') {
+      displayedText.value = text.slice(0, currentText.length - 1);
     } else {
-      con.className = 'console-underscore';
-      visible.value = true;
+      textDirection.value = textDirection.value === 'forward' ? 'backward' : 'forward';
     }
-  }, 400);
-}
 
-// Call the function on mount and clean up on unmount
-onMounted(() => {
-  consoleText(
-    ['Hello ! I am a software engineer.', 'I love building things.', 'Feel free to explore my portfolio.'],
-    'text',
-    ['tomato', 'rebeccapurple', 'lightblue']
-  );
-});
+    // if (currentText.length === 0) {
+    //   textIndex.value = (textIndex.value + 1) % textToDisplay.length;
+    // }
+  },
+  160
+);
+
+const isUnderscoreVisible = ref<boolean>(true);
+const underscoreIntervalId = setInterval(() => {
+  isUnderscoreVisible.value = !isUnderscoreVisible.value;
+}, 400);
 
 onBeforeUnmount(() => {
-  if (intervalId !== null) {
-    clearInterval(intervalId);
-  }
-  if (underscoreIntervalId !== null) {
-    clearInterval(underscoreIntervalId);
-  }
+  clearInterval(textDisplayIntervalId);
+  clearInterval(underscoreIntervalId);
 });
 </script>
 
 <template>
   <div class="console-container">
-    <span id="text"></span>
-    <div class="console-underscore" id="console">&#95;</div>
+    <span id="text">{{ displayedText }}</span>
+    <div class="console-underscore" id="console" :class="{ 'hidden': isUnderscoreVisible }">&#95;</div>
   </div>
 </template>
 
