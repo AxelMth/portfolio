@@ -24,6 +24,8 @@ const onMouseMove = (event: MouseEvent) => {
   }
 };
 
+const isMouseDownOnCloseButton = ref(false);
+
 const onMouseUp = () => {
   isDragging.value = false;
 };
@@ -43,7 +45,7 @@ onBeforeUnmount(() => {
     <div class="container" :style="{ top: `${position.y}px`, left: `${position.x}px` }">
       <div class="header" @mousedown="onMouseDown">
           {{ title }}
-          <img src="/close-button.png" @click="close">
+          <img :src="isMouseDownOnCloseButton ? '/close-button-clicked.png' : '/close-button.png'" @click="close" @mousedown="isMouseDownOnCloseButton = true" @mouseup="isMouseDownOnCloseButton = false">
       </div>
       
       <div v-if="showToolbar" class="undrag">
