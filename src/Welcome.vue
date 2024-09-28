@@ -47,7 +47,7 @@ function consoleText(words: string[], id: string, colors: string[]) {
       target.innerHTML = words[0].substring(0, letterCount.value);
       letterCount.value += x;
     }
-  }, 120);
+  }, 80);
 
   underscoreIntervalId = window.setInterval(function () {
     if (visible.value === true) {
@@ -63,7 +63,7 @@ function consoleText(words: string[], id: string, colors: string[]) {
 // Call the function on mount and clean up on unmount
 onMounted(() => {
   consoleText(
-    ['Hello World.', 'Console Text', 'Made with Love.'],
+    ['Hello ! I am a software engineer.', 'I love building things.', 'Feel free to explore my portfolio.'],
     'text',
     ['tomato', 'rebeccapurple', 'lightblue']
   );
