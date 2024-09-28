@@ -1,6 +1,5 @@
 <script lang="ts" setup>
-import VuePdfEmbed, { useVuePdfEmbed } from 'vue-pdf-embed'
-defineProps<{ title: string; body: string; close: () => void }>();
+defineProps<{ title: string; close: () => void }>();
 </script>
 
 <template>
@@ -10,7 +9,7 @@ defineProps<{ title: string; body: string; close: () => void }>();
             <img src="/close-button.png" @click="close">
         </div>
         <div class="body">
-          <VuePdfEmbed source="/Axel_Mathieu_Software_Engineer.pdf" />
+          <slot></slot>
         </div>
     </div>
 </template>

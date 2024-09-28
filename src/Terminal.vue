@@ -1,16 +1,25 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
-import Window from './components/Window.vue';
+import Resume from './components/Resume.vue';
+import Projects from './components/Projects.vue';
 
 const text = ref<string>('');
 const logs = ref<string[]>([]);
 const inputRef = ref<HTMLInputElement | null>(null);
-const shouldShowWindow = ref<boolean>(false);
+const shouldShowResume = ref<boolean>(false);
+const shouldShowProjects = ref<boolean>(false);
+const projectItems = ref<{ type: "file" | "folder", name: string; iconUrl: string }[]>([
+  { type: 'file', name: 'Project 1', iconUrl: '/file.png' },
+  { type: 'folder', name: 'Project 2', iconUrl: '/folder.png' },
+  { type: 'file', name: 'Project 3', iconUrl: '/file.png' },
+  { type: 'folder', name: 'Project 4', iconUrl: '/folder.png' },
+]);
 
 const commands: Record<string, () => void> = {
   help: () => {
     logs.value.push('Available commands:');
     logs.value.push('about - About this terminal');
+    logs.value.push('projects - Projects');
     logs.value.push('contact - Contact information');
     logs.value.push('socials - Social media links');
   },
@@ -28,11 +37,15 @@ const commands: Record<string, () => void> = {
     logs.value.push('GitHub             @some-github');
   },
   resume: () => {
-    shouldShowWindow.value = true;
+    shouldShowResume.value = true;
+  },
+  projects: () => {
+    shouldShowProjects.value = true;
   },
 }
 
 const onEnter = () => {
+  logs.value.push(`guest> ${text.value}`);
   if (commands[text.value]) {
     commands[text.value]();
   } else {
@@ -42,7 +55,8 @@ const onEnter = () => {
 }
 
 const onCloseWindow = () => {
-  shouldShowWindow.value = false;
+  shouldShowResume.value = false;
+  shouldShowProjects.value = false;
 }
 
 onMounted(() => {
@@ -57,10 +71,11 @@ onMounted(() => {
   <div>
     <p v-for="log in logs" :key="log">{{ log }}</p>
     <p>
-      admin> <input type="text" v-model="text" @keyup.enter="onEnter" ref="inputRef"/>
+      guest> <input type="text" v-model="text" @keyup.enter="onEnter" ref="inputRef"/>
     </p>
   </div>
-  <Window v-if="shouldShowWindow" title="Resume" body="This is my resume." :close="onCloseWindow"/>
+  <Resume v-if="shouldShowResume" :close="onCloseWindow"/>
+  <Projects v-if="shouldShowProjects" :close="onCloseWindow" :items="projectItems"/>
 </template>
 
 <style scoped>
