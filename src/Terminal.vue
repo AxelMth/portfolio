@@ -84,10 +84,11 @@ onMounted(() => {
 
 <template>
   <div>
-    <p v-for="(log, index) in logs" :key="index" v-html="log"></p>
-    <p>
-      guest> <input type="text" v-model="text" @keyup.enter="onEnter" ref="inputRef"/>
-    </p>
+    <p v-for="(log, index) in logs" :key="index" v-html="log"></p>   
+    <div class="command-text">
+      <span>guest&gt;</span>
+      <input type="text" v-model="text" @keyup.enter="onEnter" ref="inputRef"/>
+    </div>
   </div>
   <Resume v-if="shouldShowResume" :close="onCloseWindow"/>
   <Projects v-if="shouldShowProjects" :close="onCloseWindow" :items="projectItems"/>
@@ -95,14 +96,19 @@ onMounted(() => {
 
 <style scoped>
   input {
-    background-color: black;
-    color: white;
+    background-color: transparent;
+    color: #22eae0;
     border: none;
     outline: none;
-  }
-  input {
     font-family: Courier;
     font-size: medium;
+    flex: 1;
+    margin-left: 5px;
+  }
+  .command-text {
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
   }
 </style>
 <style>
