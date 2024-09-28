@@ -3,7 +3,8 @@ export interface Experience {
     companyLogo: string;
     jobTitle: string;
     startDate: string;
-    endDate: string;
+    endDate: string | null;
     description: string;
-    skills: string[];
+    frameworks: string[];
+    softwares: string[];
 }

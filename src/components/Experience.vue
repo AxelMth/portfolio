@@ -8,7 +8,8 @@ const formattedStartDate = computed(() => {
   return new Date(props.experience.startDate).toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
 })
 const formattedEndDate = computed(() => {
-  return new Date(props.experience.startDate).toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+  if (!props.experience.endDate) return 'Present';
+  return new Date(props.experience.endDate).toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
 })
 </script>
 
@@ -22,8 +23,11 @@ const formattedEndDate = computed(() => {
           {{ formattedStartDate }} - {{ formattedEndDate }}
         </p>
         <p>{{ experience.description }}</p>
-        <p>
-          <span v-for="skill in experience.skills">{{ skill }}</span>
+        <p class="frameworks">
+          <span class="framework" v-for="framework in experience.frameworks">{{ framework }}</span>
+        </p>
+        <p class="softwares">
+          <span class="software" v-for="software in experience.softwares">{{ software }}</span>
         </p>
       </div>
     </div>
@@ -40,17 +44,30 @@ const formattedEndDate = computed(() => {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  max-width: calc(100% - 120px);
 }
 .company-logo {
   width: 100px;
   height: 100px;
   object-fit: contain;
 }
+.frameworks, .softwares {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
 p > span {
   background-color: #22eae0;
   color: #000;
-  padding: 5px;
-  margin-right: 5px;
+  padding-left: 4px;
+  padding-right: 4px;
   border-radius: 5px;
+}
+.framework {
+  background-color: #22eae0;
+}
+.software {
+  background-color: #9d0ffd;
+  color: #fff
 }
 </style>
