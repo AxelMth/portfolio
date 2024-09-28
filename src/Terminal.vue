@@ -1,15 +1,34 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
 import Resume from './components/Resume.vue';
-import Projects from './components/Projects.vue';
 import type { FileItem } from './interfaces/file.interface';
 import type { FolderItem } from './interfaces/folder.interface';
+import { getLogsForCommands } from './helpers/log.helper';
+import FileExplorer from './components/FileExplorer.vue';
+import Experience from './components/Experience.vue';
+import type {Experience as IExperience} from './interfaces/experience.interface';
+import { CitronExperience, HubloExperience, PadoaExperience } from './constants/experiences.constant';
 
 const text = ref<string>('');
 const logs = ref<string[]>([]);
 const inputRef = ref<HTMLInputElement | null>(null);
+
 const shouldShowResume = ref<boolean>(false);
 const shouldShowProjects = ref<boolean>(false);
+const shouldShowExperiences = ref<boolean>(false);
+const currentExperience = ref<IExperience | null>(null);
+
+const experiencesItems = ref<(FileItem|FolderItem)[]>([
+  { type: 'file', name: 'Hublo', iconUrl: '/hublo.jpeg', action: () => {
+    currentExperience.value = HubloExperience;
+  } },
+  { type: 'file', name: 'Padoa', iconUrl: '/padoa.jpeg', action: () => {
+    currentExperience.value = PadoaExperience;
+  }  },
+  { type: 'file', name: 'Citron', iconUrl: '/citron.jpeg', action: () => {
+    currentExperience.value = CitronExperience;
+  }  },
+]);
 const projectItems = ref<(FileItem|FolderItem)[]>([
   { type: 'file', name: 'Earthunt', iconUrl: '/earthunt.png', action: () => {
     window.open('https://marcel.games', '_blank')
@@ -22,28 +41,18 @@ const projectItems = ref<(FileItem|FolderItem)[]>([
   }  },
 ]);
 
-const logHelpCommand = (commands: { name: string; description: string}[]) => {
-  const commandWithMaxLength = commands.reduce((acc, curr) => {
-    return curr.name.length > acc ? curr.name.length : acc;
-  }, 0);
-  const getHtmlSpacing = (command: string) => {
-    return '&nbsp;'.repeat(commandWithMaxLength - command.length);
-  }
-  logs.value.push('Available commands:');
-  commands.forEach(command => {
-    logs.value.push(`<span class="command">${command.name}</span>${getHtmlSpacing(command.name)}&nbsp;&nbsp;&nbsp;${command.description}`);
-  });
-}
 const commands: Record<string, () => void> = {
   help: () => {
-    logHelpCommand([
+  logs.value.push('Available commands: ')
+  const helpLogs = getLogsForCommands([
       { name: 'about', description: 'About me' },
-      { name: 'contact', description: 'Contact information' },
+      { name: 'experiences', description: 'Show my experiences' },
       { name: 'socials', description: 'Social media links' },
       { name: 'resume', description: 'Show my resume' },
       { name: 'projects', description: 'Show my projects' },
       { name: 'clear', description: 'Clear the terminal' },
     ])
+  helpLogs.forEach(log => logs.value.push(log));
   },
   about: () => {
     logs.value.push('This is a simple terminal created with Vue 3.');
@@ -65,6 +74,9 @@ const commands: Record<string, () => void> = {
   projects: () => {
     shouldShowProjects.value = true;
   },
+  experiences: () => {
+    shouldShowExperiences.value = true;
+  },
 }
 
 const onEnter = () => {
@@ -80,13 +92,19 @@ const onEnter = () => {
 const onCloseWindow = () => {
   shouldShowResume.value = false;
   shouldShowProjects.value = false;
+  shouldShowExperiences.value = false;
+}
+
+const onCloseExperience = () => {
+  currentExperience.value = null;
 }
 
 onMounted(() => {
   if (inputRef.value) {
     inputRef.value.focus();
   }
-  logs.value.push('Welcome to my terminal! Type help to see the available commands.');
+  logs.value.push('Welcome to my portfolio!');
+  logs.value.push('Type "help" to see available commands.');
 });
 </script>
 
@@ -99,7 +117,9 @@ onMounted(() => {
     </div>
   </div>
   <Resume v-if="shouldShowResume" :close="onCloseWindow"/>
-  <Projects v-if="shouldShowProjects" :close="onCloseWindow" :items="projectItems"/>
+  <FileExplorer v-if="shouldShowProjects" title="Projects" :close="onCloseWindow" :items="projectItems"/>
+  <FileExplorer v-if="shouldShowExperiences" title="Experiences" :close="onCloseWindow" :items="experiencesItems"/>
+  <Experience v-if="shouldShowExperiences && currentExperience" :experience="currentExperience" :close="onCloseExperience"/>
 </template>
 
 <style scoped>
