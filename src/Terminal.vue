@@ -2,16 +2,24 @@
 import { onMounted, ref } from 'vue';
 import Resume from './components/Resume.vue';
 import Projects from './components/Projects.vue';
+import type { FileItem } from './interfaces/file.interface';
+import type { FolderItem } from './interfaces/folder.interface';
 
 const text = ref<string>('');
 const logs = ref<string[]>([]);
 const inputRef = ref<HTMLInputElement | null>(null);
 const shouldShowResume = ref<boolean>(false);
 const shouldShowProjects = ref<boolean>(false);
-const projectItems = ref<{ type: "file" | "folder", name: string; iconUrl: string }[]>([
-  { type: 'file', name: 'Earthunt', iconUrl: '/earthunt.png' },
-  { type: 'file', name: 'Twit\'Hair', iconUrl: '/twit-hair.png' },
-  { type: 'file', name: 'Verdict', iconUrl: '/twit-hair.png' },
+const projectItems = ref<(FileItem|FolderItem)[]>([
+  { type: 'file', name: 'Earthunt', iconUrl: '/earthunt.png', action: () => {
+    window.open('https://marcel.games', '_blank')
+  } },
+  { type: 'file', name: 'Twit\'Hair', iconUrl: '/twit-hair.png', action: () => {
+    window.open('https://twitter.com/twitt_hair_', '_blank')
+  }  },
+  { type: 'file', name: 'Verdict', iconUrl: '/twit-hair.png', action: () => {
+    window.open('https://verdict.axelmathi.eu', '_blank')
+  }  },
 ]);
 
 const logHelpCommand = (commands: { name: string; description: string}[]) => {
