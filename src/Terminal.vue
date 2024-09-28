@@ -32,8 +32,9 @@ const commands: Record<string, () => void> = {
     logs.value.push('Email: some-email@gmail.com');
   },
   socials: () => {
-    logs.value.push('LinkedIn           @some-twitter');
-    logs.value.push('GitHub             @some-github');
+    const github = '<a class="social" href="https://github.com/AxelMth" target="_blank">Github</a>';
+    const linkedin = '<a class="social" href="https://www.linkedin.com/in/axel-mathieu-le-gall-361b1510a/" target="_blank">LinkedIn</a>';
+    logs.value.push(github + '&nbsp;&nbsp;&nbsp;' + linkedin);
   },
   resume: () => {
     shouldShowResume.value = true;
@@ -68,7 +69,7 @@ onMounted(() => {
 
 <template>
   <div>
-    <p v-for="log in logs" :key="log">{{ log }}</p>
+    <p v-for="(log, index) in logs" :key="index" v-html="log"></p>
     <p>
       guest> <input type="text" v-model="text" @keyup.enter="onEnter" ref="inputRef"/>
     </p>
@@ -88,4 +89,14 @@ onMounted(() => {
     font-family: Courier;
     font-size: medium;
   }
+</style>
+<style>
+a.social {
+  color: #9d0ffd;
+}
+a.social:hover {
+  background: #22eae0;
+  color: #211830;
+  cursor: pointer;
+}
 </style>
