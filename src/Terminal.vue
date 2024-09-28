@@ -14,13 +14,28 @@ const projectItems = ref<{ type: "file" | "folder", name: string; iconUrl: strin
   { type: 'file', name: 'Verdict', iconUrl: '/twit-hair.png' },
 ]);
 
+const logHelpCommand = (commands: { name: string; description: string}[]) => {
+  const commandWithMaxLength = commands.reduce((acc, curr) => {
+    return curr.name.length > acc ? curr.name.length : acc;
+  }, 0);
+  const getHtmlSpacing = (command: string) => {
+    return '&nbsp;'.repeat(commandWithMaxLength - command.length);
+  }
+  logs.value.push('Available commands:');
+  commands.forEach(command => {
+    logs.value.push(`<span class="command">${command.name}</span>${getHtmlSpacing(command.name)}&nbsp;&nbsp;&nbsp;${command.description}`);
+  });
+}
 const commands: Record<string, () => void> = {
   help: () => {
-    logs.value.push('Available commands:');
-    logs.value.push('about - About this terminal');
-    logs.value.push('projects - Projects');
-    logs.value.push('contact - Contact information');
-    logs.value.push('socials - Social media links');
+    logHelpCommand([
+      { name: 'about', description: 'About me' },
+      { name: 'contact', description: 'Contact information' },
+      { name: 'socials', description: 'Social media links' },
+      { name: 'resume', description: 'Show my resume' },
+      { name: 'projects', description: 'Show my projects' },
+      { name: 'clear', description: 'Clear the terminal' },
+    ])
   },
   about: () => {
     logs.value.push('This is a simple terminal created with Vue 3.');
@@ -91,6 +106,9 @@ onMounted(() => {
   }
 </style>
 <style>
+span.command {
+  color: #e60efe;
+}
 a.social {
   color: #9d0ffd;
 }
