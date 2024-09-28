@@ -6,7 +6,7 @@ defineProps<{ items: { type: "file" | "folder", name: string; iconUrl: string }[
 </script>
 
 <template>
-  <Window title="Projets" :close="close">
+  <Window title="Projets" :close="close" :show-toolbar="false">
     <div class="projects">
       <div v-for="item in items" :key="item.name"  class="project">
         <File v-if="item.type === 'file'" :name="item.name" :icon-url="item.iconUrl"/>

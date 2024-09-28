@@ -5,7 +5,7 @@ defineProps<{ close: () => void }>();
 </script>
 
 <template>
-  <Window title="Curriculum Vitae" :close="close">
+  <Window title="Curriculum Vitae" :close="close" :show-toolbar="true">
     <VuePdfEmbed source="/Axel_Mathieu_Software_Engineer.pdf" />
   </Window>
 </template>

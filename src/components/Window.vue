@@ -1,16 +1,30 @@
 <script lang="ts" setup>
-defineProps<{ title: string; close: () => void }>();
+defineProps<{ title: string; showToolbar: boolean; close: () => void }>(
+);
 </script>
 
 <template>
     <div class="container">
-        <div class="header">
-            {{ title }}
-            <img src="/close-button.png" @click="close">
-        </div>
-        <div class="body">
+      <div class="header">
+          {{ title }}
+          <img src="/close-button.png" @click="close">
+      </div>
+      
+      <div v-if="showToolbar" class="undrag">
+        <a href="#" id="start"></a>
+        <a class="linkTop" href="#">File</a>
+        <a class="linkTop" href="#">Edit</a>
+        <a class="linkTop" href="#">View</a>
+        <a class="linkTop" href="#">Help</a>
+
+        <div class="body bordered">
           <slot></slot>
         </div>
+      </div>
+
+      <div v-if="!showToolbar" class="body">
+        <slot></slot>
+      </div>
     </div>
 </template>
 
@@ -53,14 +67,43 @@ defineProps<{ title: string; close: () => void }>();
         background: linear-gradient(to right, #9d0ffd 0%, #e60efe 100%);
         width: 100%;
     }
-    div.body {
+    .body {
         background: #fff;
-        padding: 10px;
-        height: calc(100% - 30px);
+        height: calc(100% - 10px);
         overflow-y: scroll;
+    }
+    .body.bordered {
+        border: 3px #969696 inset;
+        margin: 0 4px 4px;
+        padding: 10px;
     }
     img {
         cursor: pointer;
+    }
+    .undrag {
+      background: #c0c0c0;
+      width: 100%;
+      height: calc(100% - 50px);
+      color: #000;
+    }
+    .linkTop {
+      display: inline;
+      color: #000;
+      padding: 3px;
+      line-height: 24px;
+    }
+    .linkTop:hover {
+      background: #969696;
+      color: #211830;
+    }
+    .bottom p {
+      height: 20px;
+      border: 3px #969696 inset;
+      padding: 2px 4px;
+    }
+    .b1 {
+      flex: initial;
+      margin-right: 6px;
     }
 </style>
 
@@ -74,136 +117,6 @@ defineProps<{ title: string; close: () => void }>();
       <a class="linkTop" href="#">Edit</a>
       <a class="linkTop" href="#">View</a>
       <a class="linkTop" href="#">Help</a>
-
-      <div class="prez">
-        <a href="#" class="icon btn-direction" data-direction-project="p1" data-top="Canvas">
-          <img class="hover" src="img/canvasHover.png" alt="canvas">
-          <img src="img/canvas.png" alt="canvas">
-          <p>Canvas</p>
-        </a>
-        <a href="#" class="icon btn-direction" data-direction-project="p2" data-top="Morphing">
-          <img class="hover" src="img/morphingHover.png" alt="morphing">
-          <img src="img/morphing.png" alt="morphing">
-          <p>Morphing</p>
-        </a>
-        <a href="#" class="icon btn-direction" data-direction-project="p3" data-top="Personal Portfolio">
-          <img class="hover" src="img/portfolioHover.png" alt="portfolio">
-          <img src="img/portfolio.png" alt="personal portfolio">
-          <p>Portfolio</p>
-        </a>
-        <a href="#" class="icon btn-direction" data-direction-project="p4" data-top="Circle Gallery">
-          <img class="hover" src="img/portfolioHover.png" alt="Circle Gallery">
-          <img src="img/portfolio.png" alt="">
-          <p>Circle Gallery</p>
-        </a>
-      </div>
-
-      <div class="prez prez-2" id="p1">
-        <a href="#" class="btn btn-back">Back</a>
-        <br>
-        <br>
-        <h3>What is canvas ?</h3>
-        <p>
-          "The Canvas API provides a means for drawing graphics via
-          JavaScript and the HTML &lt;canvas&gt; element. Among other
-          things, it can be used for animation, game graphics, data
-          visualization, photo manipulation, and real-time video processing.
-          <br>
-          The Canvas API largely focuses on 2D graphics. The WebGL API,
-          which also uses the &lt;canvas&gt; element, draws
-          hardware-accelerated 2D and 3D graphics."
-
-          <a href="https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API" target="_blank">Canvas MDN</a>
-        </p>
-        <br><br>
-        <img src="img/canvas/canvas1.gif">
-        <p><b>First test :</b> collision creation with the edges</p>
-        <br>
-        <a href="canvas/Test-2/index.html" target="_blank" class="btn">Try</a><br><br><br>
-
-        <img src="img/canvas/canvas2.gif">
-        <p><b>Second test :</b> make the balls react with the cursor</p>
-        <br>
-        <a href="canvas/Test-3/index.html" target="_blank" class="btn">Try</a><br><br><br>
-
-        <img src="img/canvas/canvas3.gif">
-        <p><b>Third test :</b> create a new cursor with his path</p>
-        <br>
-        <a href="canvas/Test-4/index.html" target="_blank" class="btn">Try</a><br><br><br>
-
-        <img src="img/canvas/canvas4.PNG">
-        <p><b>Fourth test :</b> Random Circles with No Overlap</p>
-        <br>
-        <a href="canvas/Test-5/index.html" target="_blank" class="btn">Try</a><br><br><br>
-
-        <img src="img/canvas/canvas5.gif">
-        <p><b>Fifth test :</b> collision between the balls</p>
-        <br>
-        <a href="canvas/Test-6/index.html" target="_blank" class="btn">Try</a><br><br>
-        <br><br>
-      </div>
-
-      <div class="prez prez-2" id="p2">
-        <a href="#" class="btn btn-back">Back</a>
-        <br>
-        <br>
-        <h3>What is morphing ?</h3>
-        <p>
-          "Morphing is a special effect in motion pictures and animations
-          that changes (or morphs) one image or shape into another through a
-          seamless transition."
-          <a href="https://en.wikipedia.org/wiki/Morphing" target="_blank">Wikipédia Morphing</a>
-        </p>
-        <br><br>
-
-        <img src="img/Morphing/MorphingSVG.gif">
-        <p>
-          <b>First test :</b> Create Morphing with anime js by juliangarnier
-          Creates transition between two svg shapes
-        </p>
-        <br>
-        <a href="morphing/MorphingSVG.html" target="_blank" class="btn">Try</a><br><br>
-
-        <img src="img/Morphing/MorphinCanvas.gif">
-        <p>
-          <b>Thousandth test :</b> After a lot, a lot, a lot of testing I
-          finally succeeded created random Morphing shape in canvas
-        </p>
-        <br>
-        <a href="morphing/MorphingCanvas.html" target="_blank" class="btn">Try</a><br><br>
-        <br><br>
-      </div>
-
-      <div class="prez prez-2" id="p3">
-        <a href="#" class="btn btn-back">Back</a>
-        <br>
-        <br>
-        <h3>My Personal portfolio</h3>
-        <p>
-          This is my own portfolio.<br>
-          I created it to present all my work as this Terminal Portfolio.
-          <a href="http://valentinsld.fr/" target="_blank">http://valentinsld.fr/</a>
-        </p>
-        <br><br>
-
-        <img src="img/portfolio.gif">
-        <br><br>
-      </div>
-
-      <div class="prez prez-2" id="p4">
-        <a href="#" class="btn btn-back">Back</a>
-        <br>
-        <br>
-        <h3>Circle Colored Gallery</h3>
-        <p>
-          Gallery of works of art classified by chromatic order.
-        </p>
-        <br>
-        <img src="img/Colormuseum.gif"><br>
-        <br>
-        <a href="http://valentinsld.fr/CircleColoredGallery/" target="_blank" class="btn">Try</a><br><br>
-        <br>
-      </div>
 
       <div class="bottom">
         <p class="b1">
