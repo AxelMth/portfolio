@@ -1,11 +1,47 @@
 <script lang="ts" setup>
-defineProps<{ title: string; showToolbar: boolean; close: () => void }>(
-);
+defineProps<{ title: string; showToolbar: boolean; close: () => void }>();
+
+import { ref, onMounted, onBeforeUnmount } from 'vue';
+
+const isDragging = ref(false);
+const position = ref({ x: 0, y: 0 });
+const offset = ref({ x: 0, y: 0 });
+
+const onMouseDown = (event: MouseEvent) => {
+  isDragging.value = true;
+  offset.value = {
+    x: event.clientX - position.value.x,
+    y: event.clientY - position.value.y,
+  };
+};
+
+const onMouseMove = (event: MouseEvent) => {
+  if (isDragging.value) {
+    position.value = {
+      x: event.clientX - offset.value.x,
+      y: event.clientY - offset.value.y,
+    };
+  }
+};
+
+const onMouseUp = () => {
+  isDragging.value = false;
+};
+
+onMounted(() => {
+  window.addEventListener('mousemove', onMouseMove);
+  window.addEventListener('mouseup', onMouseUp);
+});
+
+onBeforeUnmount(() => {
+  window.removeEventListener('mousemove', onMouseMove);
+  window.removeEventListener('mouseup', onMouseUp);
+});
 </script>
 
 <template>
-    <div class="container">
-      <div class="header">
+    <div class="container" :style="{ top: `${position.y}px`, left: `${position.x}px` }">
+      <div class="header" @mousedown="onMouseDown">
           {{ title }}
           <img src="/close-button.png" @click="close">
       </div>
@@ -106,23 +142,3 @@ defineProps<{ title: string; showToolbar: boolean; close: () => void }>(
       margin-right: 6px;
     }
 </style>
-
-<!-- <div class="resize-drag"><a href="#" id="start">
-    <div class="top">
-      <p id="toped">My Works</p>
-      <img id="close" src="img/X.png">
-    </div>
-    </a><div class="undrag"><a href="#" id="start">
-      </a><a class="linkTop" href="#">File</a>
-      <a class="linkTop" href="#">Edit</a>
-      <a class="linkTop" href="#">View</a>
-      <a class="linkTop" href="#">Help</a>
-
-      <div class="bottom">
-        <p class="b1">
-          4 items, select a project
-        </p>
-        <p class="b2"></p>
-      </div>
-    </div>
-  </div> -->
