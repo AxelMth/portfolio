@@ -36,7 +36,7 @@ const projectItems = ref<(FileItem|FolderItem)[]>([
   { type: 'file', name: 'Twit\'Hair', iconUrl: '/twit-hair.png', action: () => {
     window.open('https://twitter.com/twitt_hair_', '_blank')
   }  },
-  { type: 'file', name: 'Verdict', iconUrl: '/twit-hair.png', action: () => {
+  { type: 'file', name: 'Verdict', iconUrl: '/verdict.png', action: () => {
     window.open('https://verdict.axelmathi.eu', '_blank')
   }  },
 ]);
