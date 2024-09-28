@@ -71,11 +71,11 @@ defineProps<{ title: string; showToolbar: boolean; close: () => void }>(
         background: #fff;
         height: calc(100% - 10px);
         overflow-y: scroll;
+        padding: 10px;
     }
     .body.bordered {
         border: 3px #969696 inset;
         margin: 0 4px 4px;
-        padding: 10px;
     }
     img {
         cursor: pointer;
