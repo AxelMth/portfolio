@@ -9,8 +9,11 @@ defineProps<{ name: string; iconUrl: string }>();
 
 <style scoped>
   img {
-    width: 100px;
-    height: 100px;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    justify-self: center;
+    align-self: center;
   }
   p {
     font-weight: bold;

@@ -9,9 +9,9 @@ const inputRef = ref<HTMLInputElement | null>(null);
 const shouldShowResume = ref<boolean>(false);
 const shouldShowProjects = ref<boolean>(false);
 const projectItems = ref<{ type: "file" | "folder", name: string; iconUrl: string }[]>([
-  { type: 'file', name: 'Project 1', iconUrl: '/file.png' },
+  { type: 'file', name: 'Project 1', iconUrl: '/github.svg' },
   { type: 'folder', name: 'Project 2', iconUrl: '/folder.png' },
-  { type: 'file', name: 'Project 3', iconUrl: '/file.png' },
+  { type: 'file', name: 'Project 3', iconUrl: '/linkedin.png' },
   { type: 'folder', name: 'Project 4', iconUrl: '/folder.png' },
 ]);
 

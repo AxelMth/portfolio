@@ -21,6 +21,7 @@ div.projects {
   display: flex;
   flex-direction: row;
   gap: 2rem;
+  align-items: baseline;
 }
 div.project {
   display: flex;
