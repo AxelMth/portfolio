@@ -1,33 +1,37 @@
 <script setup lang="ts">
-import { onBeforeMount, onBeforeUnmount, ref } from 'vue';
+import { onBeforeUnmount, ref } from 'vue';
 
 const textToDisplay = [
-  'Hello, World!',
+  'Hello visitor!',
+  'I am Axel, a Web Developer.',
   'Welcome to my portfolio!',
-  'I am a full-stack developer.',
-
 ];
 const textIndex = ref<number>(0);
 const displayedText = ref<string>('');
-const textDirection = ref<'forward' | 'backward'>('forward');
-const textDisplayIntervalId = setInterval(
-  () => {
-    const text = textToDisplay[textIndex.value];
-    const currentText = displayedText.value;
-    if (currentText.length < text.length && textDirection.value === 'forward') {
-      displayedText.value = text.slice(0, currentText.length + 1);
-    } else if (currentText.length > 0 && textDirection.value === 'backward') {
-      displayedText.value = text.slice(0, currentText.length - 1);
-    } else {
-      textDirection.value = textDirection.value === 'forward' ? 'backward' : 'forward';
-    }
+const textDisplayIntervalId = ref<number | undefined>(undefined);
 
-    // if (currentText.length === 0) {
-    //   textIndex.value = (textIndex.value + 1) % textToDisplay.length;
-    // }
-  },
-  160
-);
+const displayNextText = () => {
+  const text = textToDisplay[textIndex.value];
+  const currentText = displayedText.value;
+
+  if (currentText.length < text.length) {
+    displayedText.value = text.slice(0, currentText.length + 1);
+  } else {
+    clearInterval(textDisplayIntervalId.value);
+    setTimeout(() => {
+      textIndex.value = (textIndex.value + 1) % textToDisplay.length;
+      displayedText.value = ''; // Clear displayedText before starting next
+      startDisplayingText(); // Start the next text
+    }, 1500); // 1 second pause before showing the next text
+  }
+};
+
+const startDisplayingText = () => {
+  textDisplayIntervalId.value = setInterval(displayNextText, 160);
+};
+
+// Start displaying the first text
+startDisplayingText();
 
 const isUnderscoreVisible = ref<boolean>(true);
 const underscoreIntervalId = setInterval(() => {
@@ -35,7 +39,7 @@ const underscoreIntervalId = setInterval(() => {
 }, 400);
 
 onBeforeUnmount(() => {
-  clearInterval(textDisplayIntervalId);
+  clearInterval(textDisplayIntervalId.value);
   clearInterval(underscoreIntervalId);
 });
 </script>
@@ -49,9 +53,6 @@ onBeforeUnmount(() => {
 
 <style scoped>
 @import url(https://fonts.googleapis.com/css?family=Khula:700);
-body {
-  background: #111;
-}
 .hidden {
   opacity: 0;
 }
