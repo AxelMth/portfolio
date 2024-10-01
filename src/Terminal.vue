@@ -121,6 +121,9 @@ onMounted(() => {
 </template>
 
 <style scoped>
+  * {
+    box-sizing: border-box; /* Ensure that padding/borders are included in the width calculation */
+  }
   input {
     background-color: transparent;
     color: #22eae0;
@@ -130,19 +133,23 @@ onMounted(() => {
     font-size: medium;
     flex: 1;
     margin-left: 5px;
+    min-width: 0; /* Prevent input from expanding beyond its container */
   }
   .command-text {
     display: flex;
     align-items: center;
     white-space: nowrap;
+    width: 100%; /* Ensure it stays within the parent container */
+    overflow-x: hidden; /* Prevent text overflow */
   }
   .welcome-message {
     display: flex;
     flex-direction: column;
     align-items: center;
-  
     padding: 20px;
-    width: 100vw;
+    width: 100%; /* Avoid using 100vw, as it might cause overflow with padding/margin */
+    max-width: 100vw; /* Ensure content doesn't exceed the viewport width */
+    overflow-x: hidden; /* Prevent X-axis overflow */
   }
 </style>
 <style>
