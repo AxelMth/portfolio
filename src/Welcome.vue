@@ -3,7 +3,7 @@ import { onBeforeUnmount, ref } from 'vue';
 import Terminal from './Terminal.vue';
 import BlueScreen from './BlueScreen.vue';
 import BootScreen from './BootScreen.vue';
-import { BLUE_SCREEN_TIMEOUT, GLITCH_TEXT_TIMEOUT } from './constants/timings.constant';
+import { BLUE_SCREEN_TIMEOUT, GLITCH_TEXT_TIMEOUT, TIME_BETWEEN_WORDS, TYPING_TIME } from './constants/timings.constant';
 
 const textToDisplay = [
   'Hello visitor!',
@@ -44,12 +44,12 @@ const displayNextText = () => {
       textIndex.value = (textIndex.value + 1) % textToDisplay.length;
       displayedText.value = '';
       startDisplayingText();
-    }, 1500);
+    }, TIME_BETWEEN_WORDS);
   }
 };
 
 const startDisplayingText = () => {
-  textDisplayIntervalId.value = setInterval(displayNextText, 100);
+  textDisplayIntervalId.value = setInterval(displayNextText, TYPING_TIME);
 };
 
 // Start displaying the first text
