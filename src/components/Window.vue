@@ -80,7 +80,9 @@ onBeforeUnmount(() => {
 
         position: absolute;
         height: 600px;
-        width: 560px;
+        max-height: 75%;
+        width: 80%;
+        max-width: 560px;
         top: 10vh;
         left: 10vw;
     }
