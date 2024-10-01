@@ -5,7 +5,6 @@ const textToDisplay = [
   'Hello visitor!',
   'I am Axel, a Web Developer.',
   'Welcome to my portfolio!',
-  'You will kno',
 ];
 const textIndex = ref<number>(0);
 const displayedText = ref<string>('');
@@ -38,7 +37,7 @@ const displayNextText = () => {
 };
 
 const startDisplayingText = () => {
-  textDisplayIntervalId.value = setInterval(displayNextText, 160);
+  textDisplayIntervalId.value = setInterval(displayNextText, 100);
 };
 
 // Start displaying the first text
@@ -60,10 +59,7 @@ onBeforeUnmount(() => {
     <span id="text" :class="{ glitch: textDisplayIsOver }">{{ displayedText }}</span>
     <span class="console-underscore" :class="{ hidden: isUnderscoreVisible, glitch: textDisplayIsOver  }">&#95;</span>
   </div>
-  <div id="blueScreen" :class="{ hidden: !shouldShowBlueScreen }"> 
-    <p>A problem has been detected and Windows has been shut down to prevent damage to your computer.</p>
-    <p>*** STOP: 0x000000D1 (0x00000000, 0x00000002, 0x00000001, 0xF748E0BF)</p>
-  </div>
+  <div id="blueScreen" :class="{ hidden: !shouldShowBlueScreen }"></div>
 </template>
 
 <style scoped>
@@ -84,34 +80,13 @@ onBeforeUnmount(() => {
   right:0;
   margin:auto;
 
+  transition: all 0.5s ease;
 }
 
 .glitch {
   animation: glitch 0.2s steps(2) infinite;
 }
 
-.hidden {
-  display: none !important;
-}
-
-#blueScreen {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: blue;
-  color: white;
-  font-family: monospace;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-
-  flex-direction: column;
-  font-size: 20px;
-  line-height: 1.5;
-}
 
 @keyframes glitch {
   0% {
@@ -131,4 +106,18 @@ onBeforeUnmount(() => {
     transform: none;
   }
 }
+
+.hidden {
+  display: none !important;
+}
+
+#blueScreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: blue;
+}
+
 </style>
