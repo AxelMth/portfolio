@@ -38,36 +38,32 @@ const formattedEndDate = computed(() => {
 .experience {
   display: flex;
   align-items: flex-start;
-  gap: 20px;
+  gap: 1.25rem; /* 20px */
 }
 .content {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  max-width: calc(100% - 120px);
+  gap: 0.625rem; /* 10px */
+  max-width: calc(100% - 7.5rem); /* 100% - 120px */
 }
 .company-logo {
-  width: 100px;
-  height: 100px;
+  width: 6.25rem; /* 100px */
+  height: 6.25rem; /* 100px */
   object-fit: contain;
 }
 .frameworks, .softwares {
   display: flex;
   flex-wrap: wrap;
-  gap: 5px;
+  gap: 0.3125rem; /* 5px */
 }
 p > span {
   background-color: #22eae0;
   color: #000;
-  padding-left: 4px;
-  padding-right: 4px;
-  border-radius: 5px;
+  padding-left: 0.25rem; /* 4px */
+  padding-right: 0.25rem; /* 4px */
+  border-radius: 0.3125rem; /* 5px */
 }
 .framework {
   background-color: #22eae0;
-}
-.software {
-  background-color: #9d0ffd;
-  color: #fff
 }
 </style>
