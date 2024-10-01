@@ -6,7 +6,7 @@ export const HubloExperience: Experience = {
     jobTitle: 'Software Engineer',
     startDate: '2019-02-01',
     endDate: '2020-12-01',
-    description: 'Écriture et mise en place d’une nouvelle architecture microservices. Découpage des tâches et plannification des sujets techniques pour une équipe de 3 personnes. Mise en place de nouveaux process agiles.',
+    description: 'Developed a custom front-end framework (AngularJS layer) and a service-oriented architecture (Domain Driven Design) on the back-end (NodeJS).',
     frameworks: ['React.js', 'Node.js', 'Express.js', 'PostgreSQL', 'Docker', 'RabbitMQ'],
     softwares: ['GitHub', 'Notion', 'Slack', 'Heroku', 'Monday'],
 };
@@ -16,8 +16,7 @@ export const PadoaExperience: Experience = {
     jobTitle: 'Senior Software Engineer',
     startDate: '2021-01-01',
     endDate: '2023-07-01',
-    description: `Développement de nouvelles fonctionnalités au sein de l’outil padoa. Mise en place de nouveaux
-    process agiles.`,
+    description: `Designed and implemented a new microservices architecture. Task breakdown and planning of technical topics for a team of 3. Developed new features within the Hublo tool. Introduced new agile processes. Improved deployments and continuous integration. Migrated to Typescript.`,
     frameworks: ['Angular', 'Node.js', 'Express.js', 'PostgreSQL', 'Docker', 'ArgoCD', 'ArgoWorkflows'],
     softwares: ['GitHub', 'Notion', 'Slack', 'Azure'],
 };
@@ -27,7 +26,7 @@ export const CitronExperience: Experience = {
     jobTitle: 'Tech Lead',
     startDate: '2023-07-01',
     endDate: null,
-    description: `Mise en place de l'automatisation de l'éxecution des tests. Automatisation du process de déploiement. Création d'un système d'import simple pour le paramétrage client. Migration Mongoose.`,
+    description: `Implemented automated test execution. Automated the deployment process. Created an import system for customer configuration. Migrated to Mongoose.`,
     frameworks: ['Angular', 'Node.js', 'Express.js', 'Nest.js', 'MongoDB', 'Docker', 'ArgoCD', 'ArgoWorkflows'],
     softwares: ['AWS', 'Github', 'Slack', 'Notion', 'Jira']
 };
