@@ -2,11 +2,13 @@
 import { onBeforeUnmount, ref } from 'vue';
 import Terminal from './Terminal.vue';
 import BlueScreen from './BlueScreen.vue';
+import BootScreen from './BootScreen.vue';
+import { BLUE_SCREEN_TIMEOUT, GLITCH_TEXT_TIMEOUT } from './constants/timings.constant';
 
 const textToDisplay = [
   'Hello visitor!',
-  // 'I am Axel, a Web Developer.',
-  // 'Welcome to my portfolio!',
+  'I am Axel, a Web Developer.',
+  'Welcome to my portfolio!',
 ];
 const textIndex = ref<number>(0);
 const displayedText = ref<string>('');
@@ -14,6 +16,7 @@ const textDisplayIntervalId = ref<number | undefined>(undefined);
 
 const textDisplayIsOver = ref<boolean>(false);
 const shouldShowBlueScreen = ref<boolean>(false);
+const shouldShowBootScreen = ref<boolean>(false);
 const shouldShowTerminal = ref<boolean>(false);
 
 
@@ -31,9 +34,10 @@ const displayNextText = () => {
       setTimeout(() => {
         shouldShowBlueScreen.value = true;
         setTimeout(() => {
-          shouldShowTerminal.value = true;
-        }, 3000);
-      }, 5000);
+          shouldShowBlueScreen.value = false;
+          shouldShowBootScreen.value = true;
+        }, BLUE_SCREEN_TIMEOUT);
+      }, GLITCH_TEXT_TIMEOUT);
       return
     }
     setTimeout(() => {
@@ -63,16 +67,19 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div v-if="!shouldShowBlueScreen">
+  <div v-if="!shouldShowBlueScreen && !shouldShowBootScreen && !shouldShowTerminal">
     <div class="console-container">
       <span :class="{ glitch: textDisplayIsOver }">{{ displayedText }}</span>
       <span class="console-underscore" :class="{ hidden: isUnderscoreVisible, glitch: textDisplayIsOver  }">&#95;</span>
     </div>
   </div>
-  <div v-else-if="shouldShowBlueScreen && !shouldShowTerminal">
+  <div v-else-if="shouldShowBlueScreen">
       <BlueScreen/>
   </div>
-  <div v-else>
+  <div v-else-if="shouldShowBootScreen">
+    <BootScreen @logsEnded="shouldShowBlueScreen = false; shouldShowBootScreen = false; shouldShowTerminal = true"/>
+  </div>
+  <div v-else-if="shouldShowTerminal">
     <Terminal />
   </div>
 </template>
