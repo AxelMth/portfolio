@@ -1,17 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <!-- Charset and viewport setup -->
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Title -->
+    <title>Axel Mathieu's Portfolio - Full-Stack Developer & Engineer</title>
+
+    <!-- Favicon -->
     <link rel="icon" href="/profile-picture.jpeg">
+
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Welcome to Axel Mathieu's portfolio. A full-stack developer with a passion for creating innovative and efficient solutions. Explore my projects and skills.">
+    <meta name="keywords" content="Axel Mathieu, Portfolio, Full-Stack Developer, Engineer, Web Developer, Software Engineer, Vue.js, JavaScript, TypeScript">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph Meta Tags for Social Media -->
+    <meta property="og:title" content="Axel Mathieu's Portfolio - Full-Stack Developer">
+    <meta property="og:description" content="Discover Axel Mathieu's portfolio showcasing full-stack development and engineering skills.">
+    <meta property="og:image" content="/profile-picture.jpeg">
+    <meta property="og:url" content="https://axelmathi.eu">
+    <meta property="og:type" content="website">
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Axel Mathieu's Portfolio - Full-Stack Developer">
+    <meta name="twitter:description" content="Explore Axel Mathieu's web development projects, skills, and engineering solutions.">
+    <meta name="twitter:image" content="/profile-picture.jpeg">
+    <meta name="twitter:url" content="https://axelmathi.eu">
+    
+    <!-- Structured Data (Schema.org) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Axel Mathieu",
+      "jobTitle": "Full-Stack Developer",
+      "description": "A full-stack developer and engineer showcasing his innovative projects and solutions.",
+      "url": "https://axelmathi.eu",
+      "sameAs": [
+        "https://www.linkedin.com/in/axel-mathieu-le-gall-361b1510a",
+        "https://github.com/AxelMth"
+      ],
+      "image": "/profile-picture.jpeg"
+    }
+    </script>
+
+    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Courier&display=swap" rel="stylesheet">
 
+    <!-- Vue PDF Embed Script -->
     <script src="https://unpkg.com/vue-pdf-embed"></script>
-
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Axel Mathieu&lsquo;s Portfolio</title>
   </head>
   <body>
     <div id="app"></div>
+
+    <!-- Main JS -->
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>
