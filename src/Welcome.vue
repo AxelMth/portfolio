@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import { onBeforeUnmount, ref } from 'vue';
 import Terminal from './Terminal.vue';
+import BlueScreen from './BlueScreen.vue';
 
 const textToDisplay = [
   'Hello visitor!',
-  'I am Axel, a Web Developer.',
-  'Welcome to my portfolio!',
+  // 'I am Axel, a Web Developer.',
+  // 'Welcome to my portfolio!',
 ];
 const textIndex = ref<number>(0);
 const displayedText = ref<string>('');
@@ -69,7 +70,7 @@ onBeforeUnmount(() => {
     </div>
   </div>
   <div v-else-if="shouldShowBlueScreen && !shouldShowTerminal">
-  <div class="blueScreen"></div>
+      <BlueScreen/>
   </div>
   <div v-else>
     <Terminal />
@@ -124,14 +125,4 @@ onBeforeUnmount(() => {
 .hidden {
   display: none !important;
 }
-
-.blueScreen {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: blue;
-}
-
 </style>
