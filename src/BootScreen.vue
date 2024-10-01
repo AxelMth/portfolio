@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { onUpdated, ref } from 'vue';
 import { logs as bootLogs } from './constants/logs.constant'; 
 import { BOOT_SCREEN_TIMEOUT } from './constants/timings.constant';
 
@@ -18,9 +18,17 @@ setTimeout(() => {
   emit('logsEnded');
 }, cumulatedTimeout + BOOT_SCREEN_TIMEOUT);
 
+
+const mainRef = ref<HTMLElement | null>(null);
+onUpdated(() => {
+  if (mainRef.value) {
+    mainRef.value.scrollTop = mainRef.value.scrollHeight;
+  }
+});
+
 </script>
 <template>
-  <main>
+  <main ref="mainRef">
     <p v-for="log in logs">
         {{ log }}
     </p>   
