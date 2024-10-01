@@ -92,7 +92,7 @@ onBeforeUnmount(() => {
   font-family: Khula;
   font-size: 3em;
   height: 200px;
-  width: 600px;
+  width: 50%;
   display: block;
   position: absolute;
   color: white;
@@ -134,7 +134,7 @@ onBeforeUnmount(() => {
   .console-container {
     font-size: 2em;
     width: 80%;
-    height: auto;
+    height: 200px;
   }
 }
 
@@ -142,7 +142,7 @@ onBeforeUnmount(() => {
   .console-container {
     font-size: 1.5em;
     width: 90%;
-    height: auto;
+    height: 200px;
   }
 }
 
