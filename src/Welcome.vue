@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onBeforeUnmount, ref } from 'vue';
+import { ref, onBeforeUnmount } from 'vue';
 import Terminal from './Terminal.vue';
 import BlueScreen from './BlueScreen.vue';
 import BootScreen from './BootScreen.vue';
@@ -67,20 +67,20 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div v-if="!shouldShowBlueScreen && !shouldShowBootScreen && !shouldShowTerminal">
+  <div v-if="shouldShowBootScreen">
+    <BootScreen @logsEnded="shouldShowBlueScreen = false; shouldShowBootScreen = false; shouldShowTerminal = true"/>
+  </div>
+  <div v-else-if="shouldShowBlueScreen">
+    <BlueScreen/>
+  </div>
+  <div v-else-if="shouldShowTerminal">
+    <Terminal />
+  </div>
+  <div v-else>
     <div class="console-container">
       <span :class="{ glitch: textDisplayIsOver }">{{ displayedText }}</span>
       <span class="console-underscore" :class="{ hidden: isUnderscoreVisible, glitch: textDisplayIsOver  }">&#95;</span>
     </div>
-  </div>
-  <div v-else-if="shouldShowBlueScreen">
-      <BlueScreen/>
-  </div>
-  <div v-else-if="shouldShowBootScreen">
-    <BootScreen @logsEnded="shouldShowBlueScreen = false; shouldShowBootScreen = false; shouldShowTerminal = true"/>
-  </div>
-  <div v-else-if="shouldShowTerminal">
-    <Terminal />
   </div>
 </template>
 
@@ -89,26 +89,24 @@ onBeforeUnmount(() => {
 @import url(https://fonts.googleapis.com/css?family=monospace:700);
 
 .console-container {
-  font-family:Khula;
-  font-size:3em;
-  height:200px;
-  width:600px;
-  display:block;
-  position:absolute;
-  color:white;
-  top:0;
-  bottom:0;
-  left:0;
-  right:0;
-  margin:auto;
-
+  font-family: Khula;
+  font-size: 3em;
+  height: 200px;
+  width: 600px;
+  display: block;
+  position: absolute;
+  color: white;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
   transition: all 0.5s ease;
 }
 
 .glitch {
   animation: glitch 0.2s steps(2) infinite;
 }
-
 
 @keyframes glitch {
   0% {
@@ -121,15 +119,41 @@ onBeforeUnmount(() => {
     transform: translate(2px, -2px);
   }
   75% {
-    transform: translate(-2px, 2px);
+    text-shadow: 2px 2px red, -2px -2px blue;
   }
   100% {
-    text-shadow: none;
-    transform: none;
+    transform: translate(-2px, 2px);
   }
 }
 
-.hidden {
-  display: none !important;
+.console-underscore.hidden {
+  visibility: hidden;
+}
+
+@media (max-width: 768px) {
+  .console-container {
+    font-size: 2em;
+    width: 80%;
+    height: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .console-container {
+    font-size: 1.5em;
+    width: 90%;
+    height: auto;
+  }
+}
+
+.blue-screen {
+  background-color: blue;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 2rem;
 }
 </style>
