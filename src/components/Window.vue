@@ -81,7 +81,7 @@ onBeforeUnmount(() => {
         position: absolute;
         height: 600px;
         max-height: 75%;
-        width: 80%;
+        width: calc(100% - 10vw);
         max-width: 560px;
         top: 10vh;
         left: 10vw;
