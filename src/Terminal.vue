@@ -77,10 +77,11 @@ const commands: Record<string, () => void> = {
 
 const onEnter = () => {
   logs.value.push(`guest> ${text.value}`);
-  if (commands[text.value]) {
-    commands[text.value]();
+  const cleanedText = text.value.trim().toLowerCase();
+  if (commands[cleanedText]) {
+    commands[cleanedText]();
   } else {
-    logs.value.push(`Command not found: ${text.value}`);
+    logs.value.push(`Command not found: ${cleanedText}`);
   }
   text.value = '';
 }
