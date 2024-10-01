@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { onBeforeUnmount, ref } from 'vue';
+import Terminal from './Terminal.vue';
 
 const textToDisplay = [
   'Hello visitor!',
@@ -12,6 +13,9 @@ const textDisplayIntervalId = ref<number | undefined>(undefined);
 
 const textDisplayIsOver = ref<boolean>(false);
 const shouldShowBlueScreen = ref<boolean>(false);
+const shouldShowTerminal = ref<boolean>(false);
+
+
 const displayNextText = () => {
   const text = textToDisplay[textIndex.value];
   const currentText = displayedText.value;
@@ -25,6 +29,9 @@ const displayNextText = () => {
       clearInterval(underscoreIntervalId);
       setTimeout(() => {
         shouldShowBlueScreen.value = true;
+        setTimeout(() => {
+          shouldShowTerminal.value = true;
+        }, 3000);
       }, 5000);
       return
     }
@@ -55,11 +62,18 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div class="console-container">
-    <span id="text" :class="{ glitch: textDisplayIsOver }">{{ displayedText }}</span>
-    <span class="console-underscore" :class="{ hidden: isUnderscoreVisible, glitch: textDisplayIsOver  }">&#95;</span>
+  <div v-if="!shouldShowBlueScreen">
+    <div class="console-container">
+      <span :class="{ glitch: textDisplayIsOver }">{{ displayedText }}</span>
+      <span class="console-underscore" :class="{ hidden: isUnderscoreVisible, glitch: textDisplayIsOver  }">&#95;</span>
+    </div>
   </div>
-  <div id="blueScreen" :class="{ hidden: !shouldShowBlueScreen }"></div>
+  <div v-else-if="shouldShowBlueScreen && !shouldShowTerminal">
+  <div class="blueScreen"></div>
+  </div>
+  <div v-else>
+    <Terminal />
+  </div>
 </template>
 
 <style scoped>
@@ -111,7 +125,7 @@ onBeforeUnmount(() => {
   display: none !important;
 }
 
-#blueScreen {
+.blueScreen {
   position: fixed;
   top: 0;
   left: 0;
