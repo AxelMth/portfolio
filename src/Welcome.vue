@@ -92,9 +92,10 @@ onBeforeUnmount(() => {
   font-family: Khula;
   font-size: 3em;
   height: 200px;
-  width: 50%;
+  width: 80%;
   display: block;
   position: absolute;
+  text-align: center;
   color: white;
   top: 0;
   bottom: 0;
