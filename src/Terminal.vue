@@ -99,13 +99,15 @@ onMounted(() => {
   if (inputRef.value) {
     inputRef.value.focus();
   }
-  logs.value.push('Welcome to my portfolio!');
-  logs.value.push('Type "help" to see available commands.');
 });
 </script>
 
 <template>
   <div>
+    <div class="welcome-message">
+      <p>Welcome to my portfolio !</p>
+      <p>Type "help" to see available commands.</p>
+    </div>
     <p v-for="(log, index) in logs" :key="index" v-html="log"></p>   
     <div class="command-text">
       <span>guest&gt;</span>
@@ -134,17 +136,25 @@ onMounted(() => {
     align-items: center;
     white-space: nowrap;
   }
+  .welcome-message {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  
+    padding: 20px;
+    width: 100vw;
+  }
 </style>
 <style>
-span.command {
-  color: #e60efe;
-}
-a.social {
-  color: #9d0ffd;
-}
-a.social:hover {
-  background: #22eae0;
-  color: #211830;
-  cursor: pointer;
-}
+  span.command {
+    color: #e60efe;
+  }
+  a.social {
+    color: #9d0ffd;
+  }
+  a.social:hover {
+    background: #22eae0;
+    color: #211830;
+    cursor: pointer;
+  }
 </style>
