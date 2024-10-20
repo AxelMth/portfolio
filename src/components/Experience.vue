@@ -14,7 +14,7 @@ const formattedEndDate = computed(() => {
 </script>
 
 <template>
-  <Window :title="experience.companyName" :close="close" :show-toolbar="true">
+  <Window :title="experience.companyName" :close="close">
     <div class="experience">
       <img :src="experience.companyLogo" alt="Company logo" class="company-logo"/>
       <div class="content">
@@ -45,6 +45,7 @@ const formattedEndDate = computed(() => {
   flex-direction: column;
   gap: 0.625rem; /* 10px */
   max-width: calc(100% - 7.5rem); /* 100% - 120px */
+  color: black;
 }
 .company-logo {
   width: 6.25rem; /* 100px */

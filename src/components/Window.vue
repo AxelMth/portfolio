@@ -6,7 +6,7 @@ interface MenuOption {
     action: () => void;
   }[];
 }
-defineProps<{ title: string; showToolbar: boolean; close: () => void; menuOptions?: MenuOption[] }>();
+defineProps<{ title: string; showToolbar?: boolean; close: () => void; menuOptions?: MenuOption[] }>();
 
 import { ref, onMounted, onBeforeUnmount } from 'vue';
 
