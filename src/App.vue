@@ -1,108 +1,160 @@
 <script setup lang="ts">
-import Applications from './Applications.vue';
-import Experiences from './Experiences.vue';
+import { ref, onBeforeUnmount } from 'vue';
+import Terminal from './Terminal.vue';
+import BlueScreen from './BlueScreen.vue';
+import BootScreen from './BootScreen.vue';
+import { BLUE_SCREEN_TIMEOUT, GLITCH_TEXT_TIMEOUT, TIME_BETWEEN_WORDS, TYPING_TIME } from './constants/timings.constant';
 
-import { computed, ref, type Component } from 'vue'
+const textToDisplay = [
+  'Hello visitor!',
+  'I am Axel, a Web Developer.',
+  'Welcome to my portfolio!',
+];
+const textIndex = ref<number>(0);
+const displayedText = ref<string>('');
+const textDisplayIntervalId = ref<number | undefined>(undefined);
 
-const routes: Record<string, Component> = {
-  // '/about': About,
-  '/experiences': Experiences,
-  '/applications': Applications,
-}
+const textDisplayIsOver = ref<boolean>(false);
+const shouldShowBlueScreen = ref<boolean>(false);
+const shouldShowBootScreen = ref<boolean>(false);
+const shouldShowTerminal = ref<boolean>(false);
 
-const currentPath = ref(window.location.hash)
 
-window.addEventListener('hashchange', () => {
-  currentPath.value = window.location.hash
-})
+const displayNextText = () => {
+  const text = textToDisplay[textIndex.value];
+  const currentText = displayedText.value;
 
-const currentView = computed(() => {
-  return routes[currentPath.value.slice(1) || '/formations']
-})
+  if (currentText.length < text.length) {
+    displayedText.value = text.slice(0, currentText.length + 1);
+  } else {
+    clearInterval(textDisplayIntervalId.value);
+    if (textIndex.value === textToDisplay.length - 1) {
+      textDisplayIsOver.value = true;
+      clearInterval(underscoreIntervalId);
+      setTimeout(() => {
+        shouldShowBlueScreen.value = true;
+        setTimeout(() => {
+          shouldShowBlueScreen.value = false;
+          shouldShowBootScreen.value = true;
+        }, BLUE_SCREEN_TIMEOUT);
+      }, GLITCH_TEXT_TIMEOUT);
+      return
+    }
+    setTimeout(() => {
+      textIndex.value = (textIndex.value + 1) % textToDisplay.length;
+      displayedText.value = '';
+      startDisplayingText();
+    }, TIME_BETWEEN_WORDS);
+  }
+};
+
+const startDisplayingText = () => {
+  textDisplayIntervalId.value = setInterval(displayNextText, TYPING_TIME);
+};
+
+// Start displaying the first text
+startDisplayingText();
+
+const isUnderscoreVisible = ref<boolean>(true);
+const underscoreIntervalId = setInterval(() => {
+  isUnderscoreVisible.value = !isUnderscoreVisible.value;
+}, 400);
+
+onBeforeUnmount(() => {
+  clearInterval(textDisplayIntervalId.value);
+  clearInterval(underscoreIntervalId);
+});
 </script>
 
 <template>
-  <aside>
-    <div class="contact">
-        <img class="logo" src="/profile-picture.jpeg" alt="Logo" width="100" height="100" />
-        <p>Axel Mathieu</p>
-        <div class="socials">
-          <a href="https://github.com/AxelMth" target="_blank">
-            <img src="/github.png" alt="Github" width="20" height="20" />
-          </a>
-          <a href="https://www.linkedin.com/in/axel-mathieu-le-gall-361b1510a/" target="_blank">
-            <img src="/linkedin.png" alt="Linkedin" width="20" height="20" />
-          </a>
-        </div>
-      </div>
-    <nav>
-      <a href="#/experiences">Experiences</a>
-      <a href="#/applications">Applications</a>
-    </nav>
-  </aside>
-  <main>
-    <component :is="currentView" />
-  </main>
+  <div v-if="shouldShowBootScreen">
+    <BootScreen @logsEnded="shouldShowBlueScreen = false; shouldShowBootScreen = false; shouldShowTerminal = true"/>
+  </div>
+  <div v-else-if="shouldShowBlueScreen">
+    <BlueScreen/>
+  </div>
+  <div v-else-if="shouldShowTerminal">
+    <Terminal />
+  </div>
+  <div v-else>
+    <div class="console-container">
+      <span :class="{ glitch: textDisplayIsOver }">{{ displayedText }}</span>
+      <span class="console-underscore" :class="{ hidden: isUnderscoreVisible, glitch: textDisplayIsOver  }">&#95;</span>
+    </div>
+  </div>
 </template>
 
 <style scoped>
-  aside {
-    position: fixed;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    width: 200px;
-    background-color: var(--color-primary);
-    color: white;
-  }
+@import url(https://fonts.googleapis.com/css?family=Khula:700);
+@import url(https://fonts.googleapis.com/css?family=monospace:700);
 
-  main {
-    height: 100vh;
-    margin-left: 200px;
-    width: calc(100vw - 400px);
-    padding: 2rem;
-  }
-
-  .contact {
-    padding-left: 1rem;
-    padding-right: 1rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.5rem;
-  }
-
-  .logo {
-    display: block;
-    border-radius: 50px;
-    margin-top: 1rem;
-  }
-
-  .socials {
-    display: flex;
-    justify-content: space-around;
-  }
-
-  nav {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    padding: 1rem;
-  }
-</style>
-
-<style>
-/* Add this to your main CSS file or a new CSS file */
-.full-screen-item {
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  scroll-snap-align: start;
+.console-container {
+  font-family: Khula;
+  font-size: 3em;
+  height: 200px;
+  width: 80%;
+  display: block;
+  position: absolute;
+  text-align: center;
+  color: white;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  transition: all 0.5s ease;
 }
 
-.container {
-  scroll-snap-type: y mandatory;
-  overflow-y: scroll;
+.glitch {
+  animation: glitch 0.2s steps(2) infinite;
+}
+
+@keyframes glitch {
+  0% {
+    text-shadow: 2px 2px red, -2px -2px blue;
+  }
+  25% {
+    text-shadow: -2px -2px red, 2px 2px blue;
+  }
+  50% {
+    transform: translate(2px, -2px);
+  }
+  75% {
+    text-shadow: 2px 2px red, -2px -2px blue;
+  }
+  100% {
+    transform: translate(-2px, 2px);
+  }
+}
+
+.console-underscore.hidden {
+  visibility: hidden;
+}
+
+@media (max-width: 768px) {
+  .console-container {
+    font-size: 2em;
+    width: 80%;
+    height: 200px;
+  }
+}
+
+@media (max-width: 480px) {
+  .console-container {
+    font-size: 1.5em;
+    width: 90%;
+    height: 200px;
+  }
+}
+
+.blue-screen {
+  background-color: blue;
+  width: 100%;
   height: 100vh;
-}</style>
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 2rem;
+}
+</style>
