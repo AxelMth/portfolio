@@ -1,11 +1,29 @@
 <script lang="ts" setup>
-defineProps<{ title: string; showToolbar: boolean; close: () => void }>();
+interface MenuOption {
+  name: string;
+  subMenuOptions: {
+    name: string;
+    action: () => void;
+  }[];
+}
+defineProps<{ title: string; showToolbar: boolean; close: () => void; menuOptions?: MenuOption[] }>();
 
 import { ref, onMounted, onBeforeUnmount } from 'vue';
 
 const isDragging = ref(false);
 const position = ref({ x: 0, y: 0 });
 const offset = ref({ x: 0, y: 0 });
+
+const activeMenuOption = ref<MenuOption | null>(null);
+
+const toggleActiveMenuOption = (option: MenuOption) => {
+  if (activeMenuOption.value?.name === option?.name) {
+    activeMenuOption.value = null;
+  } else {
+    activeMenuOption.value = option;
+  }
+};
+
 
 const onMouseDown = (event: MouseEvent) => {
   isDragging.value = true;
@@ -50,10 +68,10 @@ onBeforeUnmount(() => {
       
       <div v-if="showToolbar" class="undrag">
         <a href="#" id="start"></a>
-        <a class="linkTop" href="#">File</a>
-        <a class="linkTop" href="#">Edit</a>
-        <a class="linkTop" href="#">View</a>
-        <a class="linkTop" href="#">Help</a>
+        <a class="linkTop" href="#" @click="toggleActiveMenuOption(option)" v-for="option in menuOptions" v-bind:class="{ active: activeMenuOption?.name === option.name }">{{  option.name  }}</a>
+        <div v-if="activeMenuOption" class="subMenu">
+          <p v-for="subOption in activeMenuOption.subMenuOptions" @click="subOption.action(); toggleActiveMenuOption(activeMenuOption)" class="linkTop b1">{{ subOption.name }}</p>
+        </div>
 
         <div class="body bordered">
           <slot></slot>
@@ -141,8 +159,18 @@ onBeforeUnmount(() => {
       border: 3px #969696 inset;
       padding: 2px 4px;
     }
-    .b1 {
-      flex: initial;
-      margin-right: 6px;
+    .subMenu {    
+      position: absolute;
+      top: 55px;
+      left: 6px;
+      background: #c0c0c0;
+      z-index: 1;
+    }
+    .subMenu:hover {
+      cursor: pointer;
+    }
+    .active {
+      background: #969696;
+      color: #211830;
     }
 </style>
