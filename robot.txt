@@ -1,0 +1,20 @@
+User-agent: *
+Allow: /
+Sitemap: https://axelmathi.eu/sitemap.xml
+
+# Block access to specific folders
+Disallow: /private/
+Disallow: /admin/
+Disallow: /tmp/
+Disallow: /cgi-bin/
+
+# Allow Google Images to crawl images
+User-agent: Googlebot-Image
+Allow: /images/
+Allow: /*.jpg$
+Allow: /*.jpeg$
+Allow: /*.gif$
+Allow: /*.png$
+
+# Add crawl delay to prevent server overload
+Crawl-delay: 10
