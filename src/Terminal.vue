@@ -30,13 +30,13 @@ const experiencesItems = ref<(FileItem|FolderItem)[]>([
   }  },
 ]);
 const projectItems = ref<(FileItem|FolderItem)[]>([
-  { type: 'file', name: 'Earthunt', iconUrl: '/earthunt.png', action: () => {
+  { type: 'file', name: 'Earthunt', iconUrl: '/homepage/earthunt.png', action: () => {
     window.open('https://marcel.games', '_blank')
   } },
-  { type: 'file', name: 'Twit\'Hair', iconUrl: '/twit-hair.png', action: () => {
+  { type: 'file', name: 'Twit\'Hair', iconUrl: '/homepage/twit-hair.png', action: () => {
     window.open('https://twitter.com/twitt_hair_', '_blank')
   }  },
-  { type: 'file', name: 'Verdict', iconUrl: '/verdict.png', action: () => {
+  { type: 'file', name: 'Verdict', iconUrl: '/homepage/verdict.png', action: () => {
     window.open('https://verdict.axelmathi.eu', '_blank')
   }  },
 ]);
