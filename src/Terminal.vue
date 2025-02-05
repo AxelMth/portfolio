@@ -8,6 +8,7 @@ import FileExplorer from './components/FileExplorer.vue';
 import Experience from './components/Experience.vue';
 import type {Experience as IExperience} from './interfaces/experience.interface';
 import { CitronExperience, HubloExperience, PadoaExperience } from './constants/experiences.constant';
+import { earthuntAsciiArt } from './constants/earthunt-ascii-art';
 
 const text = ref<string>('');
 const logs = ref<string[]>([]);
@@ -73,6 +74,11 @@ const commands: Record<string, () => void> = {
   experiences: () => {
     shouldShowExperiences.value = true;
   },
+  "locate house": () => {
+    logs.value.push(`Cherche Bonnetan sur la carte et la localisation se dévoilera à toi...`);
+    const earthuntAsciiLines = earthuntAsciiArt.split('\n');  
+    earthuntAsciiLines.forEach(line => logs.value.push(line.replace(/s/g, '&nbsp;')));
+  }
 }
 
 const onEnter = () => {
