@@ -20,13 +20,13 @@ const shouldShowExperiences = ref<boolean>(false);
 const currentExperience = ref<IExperience | null>(null);
 
 const experiencesItems = ref<(FileItem|FolderItem)[]>([
-  { type: 'file', name: 'Hublo', iconUrl: '/hublo.jpeg', action: () => {
+  { type: 'file', name: 'Hublo', iconUrl: '/homepage/hublo.jpeg', action: () => {
     currentExperience.value = HubloExperience;
   } },
-  { type: 'file', name: 'Padoa', iconUrl: '/padoa.jpeg', action: () => {
+  { type: 'file', name: 'Padoa', iconUrl: '/homepage/padoa.jpeg', action: () => {
     currentExperience.value = PadoaExperience;
   }  },
-  { type: 'file', name: 'Citron', iconUrl: '/citron.jpeg', action: () => {
+  { type: 'file', name: 'Citron', iconUrl: '/homepage/citron.jpeg', action: () => {
     currentExperience.value = CitronExperience;
   }  },
 ]);
@@ -42,7 +42,7 @@ const projectItems = ref<(FileItem|FolderItem)[]>([
   }  },
 ]);
 
-const commands: Record<string, () => void> = {
+const commands: Record<string, (args?: string[]) => void> = {
   help: () => {
   logs.value.push('Available commands: ')
   const helpLogs = getLogsForCommands([
@@ -74,18 +74,37 @@ const commands: Record<string, () => void> = {
   experiences: () => {
     shouldShowExperiences.value = true;
   },
-  "locate house": () => {
-    logs.value.push(`Cherche Bonnetan sur la carte et la localisation se dévoilera à toi...`);
-    const earthuntAsciiLines = earthuntAsciiArt.split('\n');  
-    earthuntAsciiLines.forEach(line => logs.value.push(line.replace(/s/g, '&nbsp;')));
+  locate: (args: string[] = []) => {
+    const [entryType, typeId] = args
+    console.log(entryType, typeId, args);
+    if (!entryType) {
+      logs.value.push(`Please provide a entry type (ex: house) to locate it.`);
+      return;
+    }
+    if (entryType !== 'house') {
+      logs.value.push(`Entry type not found: ${entryType}`);
+      return;
+    }
+    if (!typeId) {
+      logs.value.push(`Please provide a house id to locate it.`);
+      return;
+    }
+    if (typeId === "34f05701-277d-407f-b861-8a7d01bbf12f") {
+      logs.value.push(`Cherche Bonnetan sur la carte et la localisation se dévoilera à toi...`);
+      const earthuntLines = earthuntAsciiArt.split('\n').map(line => line.replace(/s/g, '&nbsp;'));
+      earthuntLines.forEach(line => logs.value.push(line));
+      return
+    } 
+    logs.value.push(`House not found with id: ${typeId}`);
   }
 }
 
 const onEnter = () => {
   logs.value.push(`guest> ${text.value}`);
   const cleanedText = text.value.trim().toLowerCase();
-  if (commands[cleanedText]) {
-    commands[cleanedText]();
+  const [command, ...args] = cleanedText.split(' ');
+  if (commands[command]) {
+    commands[command](args);
   } else {
     logs.value.push(`Command not found: ${cleanedText}`);
   }
@@ -129,7 +148,7 @@ onMounted(() => {
 
 <style scoped>
   * {
-    box-sizing: border-box; /* Ensure that padding/borders are included in the width calculation */
+    box-sizing: border-box;
   }
   input {
     background-color: transparent;
@@ -140,23 +159,23 @@ onMounted(() => {
     font-size: medium;
     flex: 1;
     margin-left: 5px;
-    min-width: 0; /* Prevent input from expanding beyond its container */
+    min-width: 0;
   }
   .command-text {
     display: flex;
     align-items: center;
     white-space: nowrap;
-    width: 100%; /* Ensure it stays within the parent container */
-    overflow-x: hidden; /* Prevent text overflow */
+    width: 100%;
+    overflow-x: hidden;
   }
   .welcome-message {
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 20px;
-    width: 100%; /* Avoid using 100vw, as it might cause overflow with padding/margin */
-    max-width: 100vw; /* Ensure content doesn't exceed the viewport width */
-    overflow-x: hidden; /* Prevent X-axis overflow */
+    width: 100%;
+    max-width: 100vw;
+    overflow-x: hidden;
   }
 </style>
 <style>
