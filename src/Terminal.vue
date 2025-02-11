@@ -91,8 +91,9 @@ const commands: Record<string, (args?: string[]) => void> = {
     }
     if (typeId === "34f05701-277d-407f-b861-8a7d01bbf12f") {
       logs.value.push(`Cherche Bonnetan sur la carte et la localisation se dévoilera à toi...`);
-      const earthuntLines = earthuntAsciiArt.split('\n').map(line => line.replace(/s/g, '&nbsp;'));
-      earthuntLines.forEach(line => logs.value.push(line));
+      logs.value.push(`<image src="/homepage/earthunt-ascii.png" alt="Earthunt map" />`);
+      // const earthuntLines = earthuntAsciiArt.split('\n').map(line => line.replace(/s/g, '&nbsp;'));
+      // earthuntLines.forEach(line => logs.value.push(line));
       return
     } 
     logs.value.push(`House not found with id: ${typeId}`);
