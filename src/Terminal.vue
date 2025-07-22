@@ -20,24 +20,24 @@ const shouldShowExperiences = ref<boolean>(false);
 const currentExperience = ref<IExperience | null>(null);
 
 const experiencesItems = ref<(FileItem|FolderItem)[]>([
-  { type: 'file', name: 'Hublo', iconUrl: '/homepage/hublo.jpeg', action: () => {
+  { type: 'file', name: 'Hublo', iconUrl: '/portfolio/hublo.jpeg', action: () => {
     currentExperience.value = HubloExperience;
   } },
-  { type: 'file', name: 'Padoa', iconUrl: '/homepage/padoa.jpeg', action: () => {
+  { type: 'file', name: 'Padoa', iconUrl: '/portfolio/padoa.jpeg', action: () => {
     currentExperience.value = PadoaExperience;
   }  },
-  { type: 'file', name: 'Citron', iconUrl: '/homepage/citron.jpeg', action: () => {
+  { type: 'file', name: 'Citron', iconUrl: '/portfolio/citron.jpeg', action: () => {
     currentExperience.value = CitronExperience;
   }  },
 ]);
 const projectItems = ref<(FileItem|FolderItem)[]>([
-  { type: 'file', name: 'Earthunt', iconUrl: '/homepage/earthunt.png', action: () => {
+  { type: 'file', name: 'Earthunt', iconUrl: '/portfolio/earthunt.png', action: () => {
     window.open('https://marcel.games', '_blank')
   } },
-  { type: 'file', name: 'Twit\'Hair', iconUrl: '/homepage/twit-hair.png', action: () => {
+  { type: 'file', name: 'Twit\'Hair', iconUrl: '/portfolio/twit-hair.png', action: () => {
     window.open('https://twitter.com/twitt_hair_', '_blank')
   }  },
-  { type: 'file', name: 'Verdict', iconUrl: '/homepage/verdict.png', action: () => {
+  { type: 'file', name: 'Verdict', iconUrl: '/portfolio/verdict.png', action: () => {
     window.open('https://verdict.axelmathi.eu', '_blank')
   }  },
 ]);
@@ -91,7 +91,7 @@ const commands: Record<string, (args?: string[]) => void> = {
     }
     if (typeId === "34f05701-277d-407f-b861-8a7d01bbf12f") {
       logs.value.push(`Cherche Bonnetan sur la carte et la localisation se dévoilera à toi...`);
-      logs.value.push(`<image src="/homepage/earthunt-ascii.png" alt="Earthunt map" />`);
+      logs.value.push(`<image src="/portfolio/earthunt-ascii.png" alt="Earthunt map" />`);
       // const earthuntLines = earthuntAsciiArt.split('\n').map(line => line.replace(/s/g, '&nbsp;'));
       // earthuntLines.forEach(line => logs.value.push(line));
       return

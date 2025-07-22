@@ -10,7 +10,7 @@ const menuOptions = [{
       name: 'Download',
       action: () => {
         const link = document.createElement('a');
-        link.href = '/homepage/Axel_Mathieu_Software_Engineer.pdf';
+        link.href = '/portfolio/Axel_Mathieu_Software_Engineer.pdf';
         link.download = 'Axel_Mathieu_Software_Engineer.pdf';
         link.click();
       },
@@ -21,7 +21,7 @@ const menuOptions = [{
 
 <template>
   <Window title="Curriculum Vitae" :close="close" :show-toolbar="true" :menu-options="menuOptions">
-    <VuePdfEmbed source="/homepage/Axel_Mathieu_Software_Engineer.pdf" />
+    <VuePdfEmbed source="/portfolio/Axel_Mathieu_Software_Engineer.pdf" />
   </Window>
 </template>
 

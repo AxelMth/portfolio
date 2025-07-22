@@ -2,7 +2,7 @@ import type { Experience } from "@/interfaces/experience.interface";
 
 export const HubloExperience: Experience = {
     companyName: 'Hublo',
-    companyLogo: '/homepage/hublo.jpeg',
+    companyLogo: '/portfolio/hublo.jpeg',
     jobTitle: 'Software Engineer',
     startDate: '2019-02-01',
     endDate: '2020-12-01',
@@ -12,7 +12,7 @@ export const HubloExperience: Experience = {
 };
 export const PadoaExperience: Experience = {
     companyName: 'Padoa',
-    companyLogo: '/homepage/padoa.jpeg',
+    companyLogo: '/portfolio/padoa.jpeg',
     jobTitle: 'Senior Software Engineer',
     startDate: '2021-01-01',
     endDate: '2023-07-01',
@@ -22,7 +22,7 @@ export const PadoaExperience: Experience = {
 };
 export const CitronExperience: Experience = {
     companyName: 'Citron',
-    companyLogo: '/homepage/citron.jpeg',
+    companyLogo: '/portfolio/citron.jpeg',
     jobTitle: 'Tech Lead',
     startDate: '2023-07-01',
     endDate: null,
